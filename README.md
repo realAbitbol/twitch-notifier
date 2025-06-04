@@ -2,6 +2,11 @@
 
 A small and lightweight image that provides discord notifications when streamers go live while excluding certain categories
 
+## Running from source
+- Clone the repo
+- Set the environment variables (see docker-compose below)
+- ```pip install --no-cache-dir -r requirements.txt```
+- ```python3 scheduler.py``` 
 
 ## docker-compose.yml
 
