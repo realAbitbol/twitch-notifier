@@ -1,1 +1,26 @@
-# twitch-notifier
+# Twitch-Notifier
+
+A small and lightweight image that provides discord notifications when streamers go live while excluding certain categories
+
+
+## docker-compose.yml
+
+``` yaml
+services:
+  twitch-notifier:
+    image: damastah/twitch-notifier:latest
+    container_name: twitch-notifier
+    environment:
+      - TWITCH_CLIENT_ID=<Create a twitch application and provide the client ID>
+      - TWITCH_CLIENT_SECRET=<Provide the associated application secret>
+      - DISCORD_WEBHOOK_URL=<Create a discord web hook on the channel where you want the notifications posted and set it here>
+      - CHECK_INTERVAL_MINUTES=1
+      - STREAMERS_CONFIG=[{"name":"quin69","blocked_categories":["Just Chatting", "Category 2"]},{"name":"streamer2","blocked_categories":["Just Chatting", "Category 2", "Category 3"]}]
+      - TZ=Europe/Paris
+    volumes:
+      - data:/app/data
+    restart: unless-stopped
+
+volumes:
+  data:
+```
