@@ -1,7 +1,8 @@
 # Twitch-Notifier
 
 A small and lightweight python application that provides discord notifications when streamers go live but only when they're not in certain categories.
-Should help avoid enduring the react section of certain streamers.
+
+Should help avoiding enduring the painful react section of certain streamers.
 
 👉 Only sends you one notification a day, per streamer, whenever the streamer switches to a non blacklisted category.
 
@@ -13,7 +14,7 @@ Should help avoid enduring the react section of certain streamers.
 
 ## Running from Docker (recommended)
 
-Install docker using your favorite package manager on Linux or use Docker DESKTOP ON Windows
+Install docker using your favorite package manager on Linux or use Docker Desktop on Windows
 
 ### ⚙️ docker-compose.yml
 
