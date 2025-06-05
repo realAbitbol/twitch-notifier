@@ -16,12 +16,10 @@ Should help you avoid enduring the painful react section of certain streamers.
 
 ```text
 [2025-06-05 08:38:05] INFO: Twitch-Notifier started.
-[2025-06-05 08:38:05] INFO: Checking stream status...
 [2025-06-05 08:38:06] INFO: Checking quin69...
 [2025-06-05 08:38:06] INFO: quin69 is currently offline.
 [2025-06-05 08:38:06] INFO: Checking Lacari...
 [2025-06-05 08:38:07] INFO: Sending Discord notification for Lacari - Game: 'Elden Ring: Nightreign' | Title: '🕴SLOP ENJOYER ENJOYS HIS SLOP 🕴HELPING @t10nat IN GOTY ELDEN RING FANMOD WITH ???? 🕴  EXPERT DIFFICULTY E33 🕴 PARRY ONLY (NO DODGE) 🕴'
-[2025-06-05 08:39:07] INFO: Checking stream status...
 [2025-06-05 08:39:07] INFO: Checking quin69...
 [2025-06-05 08:39:08] INFO: quin69 is currently offline.
 [2025-06-05 08:39:08] INFO: Checking Lacari...
@@ -35,7 +33,7 @@ Should help you avoid enduring the painful react section of certain streamers.
 
 - Clone the repository ```git clone https://github.com/realAbitbol/twitch-notifier.git```
 - Install ```python3```
-- Create a ```config.ini``` file with your desired settings (see config.ini.example)
+- Create a ```config.ini``` file with your desired settings (see [config.ini.example](config.ini.example))
 - ```pip install -r requirements.txt```
 - ```python3 main.py```
 
@@ -43,7 +41,7 @@ Should help you avoid enduring the painful react section of certain streamers.
 
 Install docker using your favorite package manager on Linux or use Docker Desktop on Windows
 
-### docker-compose.yml
+### [docker-compose.yml](docker-compose.yml.example)
 
 ``` yaml
 services:
