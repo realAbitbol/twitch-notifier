@@ -12,6 +12,8 @@ Should help you avoid enduring the painful react section of certain streamers.
 
 👉 Can be run from source, as well as using Docker.
 
+👉 Lean docker images based on the official python3-alpine image for x86 and ARM
+
 👉 Detailed logs
 
 ```text
