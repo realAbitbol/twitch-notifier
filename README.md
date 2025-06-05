@@ -3,7 +3,7 @@
 
 A small and lightweight python application that provides Discord notifications when streamers go live but only when they're not streaming certain categories.
 
-Should help avoiding enduring the painful react section of certain streamers.
+Should help you avoid enduring the painful react section of certain streamers.
 
 👉 Only sends you one notification a day, per streamer, whenever the streamer streams a non blacklisted category.
 
@@ -31,7 +31,7 @@ services:
       TWITCH_CLIENT_SECRET: <Provide the associated application secret>
       DISCORD_WEBHOOK_URL: <Create a discord webhook on the channel where you want the notifications posted and set it here>
       CHECK_INTERVAL_MINUTES: 1
-      STREAMERS_CONFIG: [{"name":"quin69","blocked_categories":["Just Chatting","Special Events","Path of Exile"]},{"name":"streamer2","blocked_categories":["Just Chatting","Category 2","Category 3"]}]
+      STREAMERS_CONFIG: [{"name":"quin69","blocked_categories":["Just Chatting","Special Events","Dogshit game"]},{"name":"streamer2","blocked_categories":["Just Chatting","Category 2","Category 3"]}]
       TZ: Europe/Paris
     volumes:
       - data:/app/data
