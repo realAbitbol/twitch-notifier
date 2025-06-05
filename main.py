@@ -15,7 +15,6 @@ config = load_config()
 interval = config.get("CHECK_INTERVAL_MINUTES", 5)
 
 while True:
-    logging.info("Checking stream status...")
     try:
         notify_if_live(config)
     except Exception as e:
