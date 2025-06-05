@@ -29,6 +29,8 @@ Should help you avoid enduring the painful react section of certain streamers.
 ```
 
 👉 Nice Discord notifications
+<img width="1059" alt="image" src="https://github.com/user-attachments/assets/ff9cedab-579b-45af-a6f1-96a3e79cc716" />
+
 
 ## 💻 Running from source
 
