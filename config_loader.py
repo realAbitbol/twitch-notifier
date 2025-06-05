@@ -22,9 +22,9 @@ def load_config():
     except ValueError:
         config["CHECK_INTERVAL_MINUTES"] = 1
 
-    config['TWITCH_CLIENT_ID'] = config['TWITCH_CLIENT_ID'] or os.getenv("TWITCH_CLIENT_ID")
-    config['TWITCH_CLIENT_SECRET'] = config['TWITCH_CLIENT_SECRET'] or os.getenv("TWITCH_CLIENT_SECRET")
-    config['DISCORD_WEBHOOK_URL'] = config['DISCORD_WEBHOOK_URL'] or os.getenv("DISCORD_WEBHOOK_URL")
-    config['STREAMERS_CONFIG'] = config['STREAMERS_CONFIG'] or os.getenv("STREAMERS_CONFIG", "[]")
+    config['TWITCH_CLIENT_ID'] = config.get('TWITCH_CLIENT_ID') or os.getenv("TWITCH_CLIENT_ID")
+    config['TWITCH_CLIENT_SECRET'] = config.get('TWITCH_CLIENT_SECRET') or os.getenv("TWITCH_CLIENT_SECRET")
+    config['DISCORD_WEBHOOK_URL'] = config.get('DISCORD_WEBHOOK_URL') or os.getenv("DISCORD_WEBHOOK_URL")
+    config['STREAMERS_CONFIG'] = config.get('STREAMERS_CONFIG') or os.getenv("STREAMERS_CONFIG", "[]")
 
     return config
