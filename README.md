@@ -44,15 +44,15 @@ volumes:
 - Create a New Application
 - Click “+ Register Your Application”
 - Fill out the form:
- - Name: Anything you like (e.g., TwitchNotifier)
- - OAuth Redirect URL: Just put http://localhost (not used for this app, but required)
- - Category: Choose Application Integration
- - Click Create
+  - Name: Anything you like (e.g., TwitchNotifier)
+  - OAuth Redirect URL: Just put http://localhost (not used for this app, but required)
+  - Category: Choose Application Integration
+  - Click Create
 - Copy Your Credentials
 - After creation, click on your app. You'll see:
- - Client ID — copy this to TWITCH_CLIENT_ID
- - Click "New Secret" to generate your Client Secret
- - Copy this to TWITCH_CLIENT_SECRET
+  - Client ID — copy this to TWITCH_CLIENT_ID
+  - Click "New Secret" to generate your Client Secret
+  - Copy this to TWITCH_CLIENT_SECRET
 
 ## 🔧 Step-by-Step: Create a Discord Webhook
 
@@ -60,8 +60,8 @@ volumes:
 - Go to Channel Settings : Hover over the channel → Click the gear icon
 - Go to “Integrations” > “Webhooks”
 - Click "Create Webhook"
-- Name it something like TwitchNotifier
-- Optionally, upload an avatar (e.g., Twitch logo)
+  - Name it something like TwitchNotifier
+  - Optionally, upload an avatar (e.g., Twitch logo)
 - Copy the Webhook URL (This URL will look like: https://discord.com/api/webhooks/xxxxxxxx/yyyyyyyy)
 - Add it under DISCORD_WEBHOOK_URL=...
 
