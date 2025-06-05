@@ -1,6 +1,6 @@
 # Twitch-Notifier
 
-A small and lightweight python application that provides discord notifications when streamers go live but only when they're not streaming certain categories.
+A small and lightweight python application that provides Discord notifications when streamers go live but only when they're not streaming certain categories.
 
 Should help avoiding enduring the painful react section of certain streamers.
 
