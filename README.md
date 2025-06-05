@@ -1,4 +1,5 @@
-# Twitch-Notifier
+# <img width="800" alt="image" src="https://github.com/user-attachments/assets/3b8dcf5b-1997-4c90-b8c0-f9382431c53c" />
+
 
 A small and lightweight python application that provides Discord notifications when streamers go live but only when they're not streaming certain categories.
 
