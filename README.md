@@ -4,9 +4,31 @@ A small and lightweight python application that provides Discord notifications w
 
 Should help you avoid enduring the painful react section of certain streamers.
 
+## 📋 Features
+
 👉 Only sends you one notification a day, per streamer, whenever the streamer streams a non blacklisted category.
 
 👉 Can handle as many streamers as you like, each with a personalized list of blocked categories.
+
+👉 Can be run from source, as well as using Docker.
+
+👉 Detailed logs
+
+```text
+[2025-06-05 08:38:05] INFO: Twitch-Notifier started.
+[2025-06-05 08:38:05] INFO: Checking stream status...
+[2025-06-05 08:38:06] INFO: Checking quin69...
+[2025-06-05 08:38:06] INFO: quin69 is currently offline.
+[2025-06-05 08:38:06] INFO: Checking Lacari...
+[2025-06-05 08:38:07] INFO: Sending Discord notification for Lacari - Game: 'Elden Ring: Nightreign' | Title: '🕴SLOP ENJOYER ENJOYS HIS SLOP 🕴HELPING @t10nat IN GOTY ELDEN RING FANMOD WITH ???? 🕴  EXPERT DIFFICULTY E33 🕴 PARRY ONLY (NO DODGE) 🕴'
+[2025-06-05 08:39:07] INFO: Checking stream status...
+[2025-06-05 08:39:07] INFO: Checking quin69...
+[2025-06-05 08:39:08] INFO: quin69 is currently offline.
+[2025-06-05 08:39:08] INFO: Checking Lacari...
+[2025-06-05 08:39:08] INFO: Already notified for Lacari today.
+```
+
+👉 Nice Discord notifications
 
 ## 💻 Running from source
 

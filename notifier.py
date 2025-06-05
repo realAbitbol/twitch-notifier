@@ -2,7 +2,7 @@ import requests
 import json
 import logging
 from token_manager import get_token
-from state_manager import has_already_notified_today, mark_notified
+from state_manager import has_already_notified_today, mark_notified, clean_state    
 
 def get_user_id(token, username, client_id):
     headers = {
@@ -24,8 +24,8 @@ def get_stream_info(token, user_id, client_id):
     data = res.json()
     return data["data"][0] if data["data"] else None
 
-def send_discord_notification(webhook_url, streamer, category):
-    content = f"🔔 **{streamer}** is live! Playing **{category}**"
+def send_discord_notification(webhook_url, streamer, category, title):
+    content = f"🔴 **{streamer}** is live!\nCategory: {category}\nTitle: {title}\nWatch here: https://twitch.tv/{streamer}"
     requests.post(webhook_url, json={"content": content})
 
 def notify_if_live(config):
@@ -33,6 +33,8 @@ def notify_if_live(config):
     streamers = json.loads(config["STREAMERS_CONFIG"])
     client_id = config["TWITCH_CLIENT_ID"]
     webhook = config["DISCORD_WEBHOOK_URL"]
+
+    clean_state(streamers)
 
     for s in streamers:
         name = s["name"]
@@ -50,8 +52,20 @@ def notify_if_live(config):
             continue
 
         info = get_stream_info(token, user_id, client_id)
-        if info and info["game_name"] not in blocked:
-            send_discord_notification(webhook, name, info["game_name"])
-            mark_notified(name)
+
+        if info:
+            current_game = info.get("game_name", "").strip()
+            current_game_lower = current_game.lower()
+            blocked_lower = [b.lower() for b in blocked]
+
+            if current_game_lower not in blocked_lower:
+                logging.info(f"Sending Discord notification for {name} - Game: '{current_game}' | Title: '{info.get('title', '')}'")
+                send_discord_notification(webhook, name, current_game, info.get("title", ""))
+                mark_notified(name)
+            else:
+                logging.info(f"{name} is live but streaming a blocked category: '{current_game}'")
         else:
-            logging.info(f"{name} isn't live or is streaming a blocked category.")
+            logging.info(f"{name} is currently offline.")
+
+
+
