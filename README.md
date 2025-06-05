@@ -11,7 +11,11 @@ Should help avoid enduring the react section of certain streamers.
 - ```pip install --no-cache-dir -r requirements.txt```
 - ```python3 scheduler.py``` 
 
-## ⚙️ docker-compose.yml
+## Running from Docker (recommended)
+
+Install docker using your favorite package manager on Linux or use Docker DESKTOP ON Windows
+
+### ⚙️ docker-compose.yml
 
 ``` yaml
 services:
