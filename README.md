@@ -1,10 +1,12 @@
 # Twitch-Notifier
 
-A small and lightweight python application that provides discord notifications when streamers go live but only when they're not in certain categories.
+A small and lightweight python application that provides discord notifications when streamers go live but only when they're not streaming certain categories.
 
 Should help avoiding enduring the painful react section of certain streamers.
 
-👉 Only sends you one notification a day, per streamer, whenever the streamer switches to a non blacklisted category.
+👉 Only sends you one notification a day, per streamer, whenever the streamer streams a non blacklisted category.
+
+👉 Can handle as many streamers as you like, each with a personalized list of blocked categories.
 
 ## 💻 Running from source
 - Clone the repo
