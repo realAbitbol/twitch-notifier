@@ -1,6 +1,9 @@
 # Twitch-Notifier
 
-A small and lightweight image that provides discord notifications when streamers go live while excluding certain categories
+A small and lightweight python application that provides discord notifications when streamers go live but only when they're not in certain categories.
+Should help avoid enduring the react section of certain streamers.
+
+👉 Only sends you one notification a day, per streamer, whenever the streamer switches to a non blacklisted category.
 
 ## 💻 Running from source
 - Clone the repo
@@ -20,7 +23,7 @@ services:
       - TWITCH_CLIENT_SECRET=<Provide the associated application secret>
       - DISCORD_WEBHOOK_URL=<Create a discord webhook on the channel where you want the notifications posted and set it here>
       - CHECK_INTERVAL_MINUTES=1
-      - STREAMERS_CONFIG=[{"name":"quin69","blocked_categories":["Just Chatting", "Category 2"]},{"name":"streamer2","blocked_categories":["Just Chatting", "Category 2", "Category 3"]}]
+      - STREAMERS_CONFIG=[{"name":"quin69","blocked_categories":["Just Chatting","Special Events","Path of Exile"]},{"name":"streamer2","blocked_categories":["Just Chatting","Category 2","Category 3"]}]
       - TZ=Europe/Paris
     volumes:
       - data:/app/data
