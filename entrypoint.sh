@@ -8,5 +8,5 @@ log() {
 log "INFO: Entrypoint running..."
 log "INFO: Twitch Client ID: $TWITCH_CLIENT_ID"
 
-exec python3 -u scheduler.py
+exec python3 -u main.py
 

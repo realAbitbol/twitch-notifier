@@ -1,76 +1,57 @@
-import os
-import logging
 import requests
+import json
+import logging
 from token_manager import get_token
-from state_manager import load_state, was_notified_today, mark_notified
+from state_manager import has_already_notified_today, mark_notified
 
-logger = logging.getLogger(__name__)
-CLIENT_ID = os.getenv("TWITCH_CLIENT_ID")
-
-HEADERS = {"Client-ID": CLIENT_ID, "Authorization": ""}
-
-def get_user_id(username, access_token):
-    headers = HEADERS.copy()
-    headers["Authorization"] = f"Bearer {access_token}"
-    url = f"https://api.twitch.tv/helix/users?login={username}"
-    res = requests.get(url, headers=headers)
-    if res.status_code != 200:
-        logger.error(f"Failed to get user ID for {username}: {res.text}")
-        return None
+def get_user_id(token, username, client_id):
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Client-Id": client_id
+    }
+    res = requests.get(f"https://api.twitch.tv/helix/users?login={username}", headers=headers)
+    res.raise_for_status()
     data = res.json()
-    if "data" not in data or not data["data"]:
-        logger.error(f"No user data returned for {username}: {data}")
-        return None
-    return data["data"][0]["id"]
+    return data["data"][0]["id"] if data["data"] else None
 
-def get_stream_info(user_id, access_token):
-    headers = HEADERS.copy()
-    headers["Authorization"] = f"Bearer {access_token}"
-    url = f"https://api.twitch.tv/helix/streams?user_id={user_id}"
-    res = requests.get(url, headers=headers)
-    if res.status_code != 200:
-        logger.error(f"Failed to get stream info for user_id {user_id}: {res.text}")
-        return None
+def get_stream_info(token, user_id, client_id):
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Client-Id": client_id
+    }
+    res = requests.get(f"https://api.twitch.tv/helix/streams?user_id={user_id}", headers=headers)
+    res.raise_for_status()
     data = res.json()
-    if "data" not in data or not data["data"]:
-        return None
-    return data["data"][0]
+    return data["data"][0] if data["data"] else None
 
-def send_discord_notification(webhook_url, streamer_name, stream_title, stream_url):
-    content = f"🔴 **{streamer_name}** is live!\nTitle: {stream_title}\nWatch here: {stream_url}"
-    res = requests.post(webhook_url, json={"content": content})
-    if res.status_code not in [200, 204]:
-        logger.error(f"Failed to send Discord notification: {res.text}")
+def send_discord_notification(webhook_url, streamer, category):
+    content = f"🔔 **{streamer}** is live! Playing **{category}**"
+    requests.post(webhook_url, json={"content": content})
 
-def notify_if_live(config, discord_webhook_url):
-    access_token = get_token()
-    state = load_state()
+def notify_if_live(config):
+    token = get_token(config)
+    streamers = json.loads(config["STREAMERS_CONFIG"])
+    client_id = config["TWITCH_CLIENT_ID"]
+    webhook = config["DISCORD_WEBHOOK_URL"]
 
-    for streamer in config["streamers"]:
-        name = streamer["name"]
-        blocked_categories = [cat.lower() for cat in streamer.get("blocked_categories", [])]
+    for s in streamers:
+        name = s["name"]
+        blocked = s.get("blocked_categories", [])
 
-        if was_notified_today(state, name):
-            logger.info(f"Already notified today for {name}, skipping.")
+        logging.info(f"Checking {name}...")
+
+        if has_already_notified_today(name):
+            logging.info(f"Already notified for {name} today.")
             continue
 
-        user_id = get_user_id(name, access_token)
+        user_id = get_user_id(token, name, client_id)
         if not user_id:
+            logging.warning(f"User ID not found for {name}")
             continue
 
-        stream = get_stream_info(user_id, access_token)
-        if not stream:
-            logger.info(f"{name} is not live.")
-            continue
-
-        category = stream.get("game_name", "").lower()
-        if category in blocked_categories:
-            logger.info(f"{name} is live but streaming blocked category '{category}'. Skipping notification.")
-            continue
-
-        stream_url = f"https://twitch.tv/{name}"
-        send_discord_notification(discord_webhook_url, name, stream.get("title", ""), stream_url)
-        logger.info(f"Sent notification for {name}.")
-
-        mark_notified(state, name)
-
+        info = get_stream_info(token, user_id, client_id)
+        if info and info["game_name"] not in blocked:
+            send_discord_notification(webhook, name, info["game_name"])
+            mark_notified(name)
+        else:
+            logging.info(f"{name} isn't live or is streaming a blocked category.")

@@ -1,29 +1,26 @@
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 
-STATE_FILE = "/app/data/state.json"
+STATE_FILE = "data/state.json"
 
 def load_state():
-    if not os.path.exists(STATE_FILE):
-        return {}
-    try:
+    if os.path.exists(STATE_FILE):
         with open(STATE_FILE, "r") as f:
             return json.load(f)
-    except Exception:
-        return {}
+    return {}
 
 def save_state(state):
-    os.makedirs(os.path.dirname(STATE_FILE), exist_ok=True)
     with open(STATE_FILE, "w") as f:
-        json.dump(state, f, indent=2)
+        json.dump(state, f)
 
-def was_notified_today(state, streamer_name):
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    return state.get(streamer_name) == today
+def has_already_notified_today(streamer):
+    state = load_state()
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    return state.get(streamer) == today
 
-def mark_notified(state, streamer_name):
-    today = datetime.utcnow().strftime("%Y-%m-%d")
-    state[streamer_name] = today
+def mark_notified(streamer):
+    state = load_state()
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    state[streamer] = today
     save_state(state)
-

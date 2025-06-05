@@ -1,0 +1,12 @@
+[general]
+check_interval_minutes = 1
+
+[twitch]
+client_id = your_client_id
+client_secret = your_client_secret
+
+[discord]
+webhook = https://discord.com/api/webhooks/...
+
+[streamers]
+config = [{"name":"quin69","blocked_categories":["Just Chatting","Special Events","Dogshit game"]},{"name":"streamer2","blocked_categories":["Just Chatting","Category 2","Category 3"]}]
